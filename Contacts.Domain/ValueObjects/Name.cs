@@ -16,13 +16,9 @@ public class Name(string firstName, string lastName)
         return FirstName == otherName.FirstName && LastName == otherName.LastName;
     }
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(FirstName, LastName);
-    }
+    public override int GetHashCode() => 
+        (FirstName, LastName).GetHashCode();
 
-    public override string ToString()
-    {
-        return $"{FirstName} {LastName}";
-    }
+    public override string ToString() => 
+        $"{FirstName} {LastName}";
 }

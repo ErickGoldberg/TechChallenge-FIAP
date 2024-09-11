@@ -46,7 +46,7 @@ namespace Contacts.Infraestructure.Persistence.Repositories
 
         public async Task<List<Contact>> GetContactsByDDDAsync(int DDD)
         {
-            var contacts = await _context.Contatos.Where(x => x.Telefone.DDD == DDD).ToListAsync();
+            var contacts = await _context.Contatos.Where(x => x.Phone.DDD == DDD).ToListAsync();
 
             return contacts;
         }

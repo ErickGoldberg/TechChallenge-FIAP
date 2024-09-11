@@ -18,13 +18,9 @@ public class Phone(int ddd, int number)
         return DDD == otherPhone.DDD && Number == otherPhone.Number;
     }
 
-    public override int GetHashCode()
-    {
-        return HashCode.Combine(DDD.GetHashCode(), Number.GetHashCode());
-    }
+    public override int GetHashCode() => 
+        (DDD, Number).GetHashCode();
 
-    public override string ToString()
-    {
-        return $"({DDD}) {Number}";
-    }
+    public override string ToString() => 
+        $"({DDD}) {Number}";
 }

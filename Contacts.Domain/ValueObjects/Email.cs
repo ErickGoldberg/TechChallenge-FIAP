@@ -15,8 +15,6 @@ public class Email(string endereco)
         return Endereco == outroEmail.Endereco;
     }
 
-    public override int GetHashCode()
-    {
-        return Endereco.GetHashCode();
-    }
+    public override int GetHashCode() => 
+        Endereco.GetHashCode();
 }
