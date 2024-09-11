@@ -1,4 +1,4 @@
-﻿namespace test_pass;
+﻿namespace Contacts.Domain
 public class Contato(Nome nome, Telefone telefone, Email email)
 {
     public Guid Id { get; set; } = Guid.NewGuid();

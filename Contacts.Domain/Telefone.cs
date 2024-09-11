@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace test_pass;
+namespace Contacts.Domain
 public class Telefone(string ddd, string numero)
 {
     [Required]

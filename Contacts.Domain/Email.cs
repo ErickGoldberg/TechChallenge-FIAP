@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace test_pass;
+namespace Contacts.Domain
 public class Email(string endereco)
 {
     [Required]
