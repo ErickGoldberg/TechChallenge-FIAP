@@ -1,6 +1,6 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
-namespace Contacts.Domain
+namespace Contacts.Domain.ValueObjects;
 public class Email(string endereco)
 {
     [Required]

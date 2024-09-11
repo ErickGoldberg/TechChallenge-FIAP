@@ -1,4 +1,4 @@
-﻿using Contacts.Domain;
+﻿using Contacts.Domain.Entities;
 using Contacts.Domain.Repositories;
 using Microsoft.EntityFrameworkCore;
 
@@ -12,7 +12,7 @@ namespace Contacts.Infraestructure.Persistence.Repositories
         {
             _context = context;
         }
-        public async Task CreateContactAsync(Contato contato)
+        public async Task CreateContactAsync(Contact contato)
         {
             await _context.Contatos.AddAsync(contato);
             await _context.SaveChangesAsync();
@@ -30,28 +30,28 @@ namespace Contacts.Infraestructure.Persistence.Repositories
             await _context.SaveChangesAsync();
         }
 
-        public async Task<Contato> GetContactByIdAsync(Guid id)
+        public async Task<Contact> GetContactByIdAsync(Guid id)
         {
             var contact = await _context.Contatos.FirstOrDefaultAsync(x => x.Id == id);
 
             return contact;
         }
 
-        public async Task<List<Contato>> GetContactsAsync()
+        public async Task<List<Contact>> GetContactsAsync()
         {
             var contacts = await _context.Contatos.ToListAsync();
 
             return contacts;
         }
 
-        public async Task<List<Contato>> GetContactsByDDDAsync(int DDD)
+        public async Task<List<Contact>> GetContactsByDDDAsync(int DDD)
         {
-            var contacts = await _context.Contatos.Where(x => x.DDD == DDD).ToListAsync();
+            var contacts = await _context.Contatos.Where(x => x.Telefone.DDD == DDD).ToListAsync();
 
             return contacts;
         }
 
-        public async Task UpdateContactAsync(Contato contact)
+        public async Task UpdateContactAsync(Contact contact)
         {
             _context.Contatos.Update(contact);
 

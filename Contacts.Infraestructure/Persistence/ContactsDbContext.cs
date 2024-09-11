@@ -1,4 +1,4 @@
-﻿using Contacts.Domain;
+﻿using Contacts.Domain.Entities;
 using Microsoft.EntityFrameworkCore;
 
 namespace Contacts.Infraestructure.Persistence
@@ -9,6 +9,6 @@ namespace Contacts.Infraestructure.Persistence
         {
         }
 
-        public DbSet<Contato> Contatos { get; set; }
+        public DbSet<Contact> Contatos { get; set; }
     }
 }

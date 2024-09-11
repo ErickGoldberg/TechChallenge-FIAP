@@ -1,12 +1,14 @@
-﻿namespace Contacts.Domain.Repositories
+﻿using Contacts.Domain.Entities;
+
+namespace Contacts.Domain.Repositories
 {
     public interface IContactsRepository
     {
-        Task<List<Contato>> GetContactsAsync();
-        Task<List<Contato>> GetContactsByDDDAsync(int DDD);
-        Task<Contato> GetContactByIdAsync(Guid id);
-        Task CreateContactAsync(Contato contato);
-        Task UpdateContactAsync(Contato contact);
+        Task<List<Contact>> GetContactsAsync();
+        Task<List<Contact>> GetContactsByDDDAsync(int DDD);
+        Task<Contact> GetContactByIdAsync(Guid id);
+        Task CreateContactAsync(Contact contato);
+        Task UpdateContactAsync(Contact contact);
         Task DeleteContactAsync(Guid id);
     }
 }
