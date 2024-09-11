@@ -1,12 +1,25 @@
 namespace Contacts.Domain
 {
-    public class Contato(string nome, int ddd, string telefone, string email)
+    public class Contato
     {
-        public Guid Id { get; set; } = Guid.NewGuid();
-        public string Nome { get; set; } = nome;
-        public string Email { get; set; } = email;
-        public int DDD { get; set; } = ddd;
-        public string Telefone { get; set; } = telefone;
+        public Contato() 
+        {
+        }
+         
+        public Contato(string nome, int ddd, string telefone, string email)
+        {
+            Id = Guid.NewGuid();
+            Nome = nome;
+            DDD = ddd;
+            Telefone = telefone;
+            Email = email;
+        }
+
+        public Guid Id { get; set; }
+        public string Nome { get; set; }  
+        public string Email { get; set; }  
+        public int DDD { get; set; }  
+        public string Telefone { get; set; }  
 
 
         public void AlterarNome(string NovoNome)
