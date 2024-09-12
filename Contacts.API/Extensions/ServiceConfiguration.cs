@@ -1,4 +1,6 @@
 ﻿using Contacts.API.Filters;
+using Contacts.Application.Validators;
+using FluentValidation.AspNetCore;
 using Microsoft.OpenApi.Models;
 
 namespace Contacts.API.Extensions
@@ -7,8 +9,8 @@ namespace Contacts.API.Extensions
     {
         public static WebApplicationBuilder ConfigureServices(this WebApplicationBuilder builder)
         {
-            builder.ConfigureDependencyInjection();
-            builder.ConfigureOthersServices();
+            builder.Services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
+                .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<RegisterContactValidator>());
 
             builder.Services.AddControllers();
 
@@ -24,25 +26,6 @@ namespace Contacts.API.Extensions
             });
 
             return builder;
-        }
-
-        public static IServiceCollection ConfigureDependencyInjection(this WebApplicationBuilder builder)
-        {
-            var services = builder.Services;
-
-            //services.AddScoped<IContactRepository, ContactRepository>();
-
-            return services;
-        }
-
-        public static IServiceCollection ConfigureOthersServices(this WebApplicationBuilder builder)
-        {
-            var services = builder.Services;
-
-            //services.AddControllers(options => options.Filters.Add(typeof(ValidationFilter)))
-            //        .AddFluentValidation(fv => fv.RegisterValidatorsFromAssemblyContaining<>());
-
-            return services;
         }
     }
 }

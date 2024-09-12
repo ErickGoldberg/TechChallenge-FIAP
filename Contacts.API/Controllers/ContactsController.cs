@@ -1,4 +1,6 @@
-﻿using Microsoft.AspNetCore.Mvc;
+﻿using Contacts.Domain.Entities;
+using Contacts.Domain.Repositories;
+using Microsoft.AspNetCore.Mvc;
 
 namespace Contacts.API.Controllers
 {
@@ -6,6 +8,13 @@ namespace Contacts.API.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
+        private readonly IContactsRepository _contactsRepository;
+
+        public ContactsController(IContactsRepository contactsRepository)
+        {
+            _contactsRepository = contactsRepository;
+        }
+
         /// <summary>
         /// Retorna todos os contatos.
         /// </summary>
@@ -13,11 +22,11 @@ namespace Contacts.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Produces()]
+        [Produces(typeof(List<Contact>))]
         public async Task<IActionResult> GetAll()
         {
-            await Task.CompletedTask;
-            return Ok(); 
+            var contacts = await _contactsRepository.GetContactsAsync();
+            return Ok(contacts); 
         }
 
         /// <summary>
@@ -25,14 +34,14 @@ namespace Contacts.API.Controllers
         /// </summary>
         /// <param name="id">O ID do contato.</param>
         /// <returns>Status 200 OK se encontrado, ou 404 Not Found.</returns>
-        [HttpGet("{id}")]
+        [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Produces()]
-        public async Task<IActionResult> GetById(int id)
+        [Produces(typeof(Contact))]
+        public async Task<IActionResult> GetById(Guid id)
         {
-            await Task.CompletedTask;
-            return Ok(); 
+            var contact = _contactsRepository.GetContactByIdAsync(id);
+            return Ok(contact); 
         }
 
         /// <summary>
@@ -71,10 +80,9 @@ namespace Contacts.API.Controllers
         [HttpDelete("{id}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        //[Produces()]
-        public async Task<IActionResult> Delete(int id)
+        public async Task<IActionResult> Delete(Guid id)
         {
-            await Task.CompletedTask;
+            await _contactsRepository.DeleteContactAsync(id);
             return NoContent(); 
         }
     }
