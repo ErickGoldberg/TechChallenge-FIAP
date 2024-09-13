@@ -51,24 +51,23 @@ namespace Contacts.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        //[Produces()]
-        public async Task<IActionResult> Insert()
+        public async Task<IActionResult> Insert(Contact contact)
         {
-            await Task.CompletedTask;
-            return StatusCode(201); 
+            await _contactsRepository.CreateContactAsync(contact);
+            return Created(); 
         }
 
         /// <summary>
         /// Atualiza um contato existente.
         /// </summary>
-        /// <param name="id">O ID do contato.</param>
+        /// <param name="contact"></param>
         /// <returns>Status 204 No Content, ou 404 Not Found.</returns>
-        [HttpPut("{id}")]
+        [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(int id)
+        public async Task<IActionResult> Update(Contact contact)
         {
-            await Task.CompletedTask;
+            await _contactsRepository.UpdateContactAsync(contact);
             return NoContent(); 
         }
 
@@ -77,7 +76,7 @@ namespace Contacts.API.Controllers
         /// </summary>
         /// <param name="id">O ID do contato.</param>
         /// <returns>Status 204 No Content, ou 404 Not Found.</returns>
-        [HttpDelete("{id}")]
+        [HttpDelete("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id)
