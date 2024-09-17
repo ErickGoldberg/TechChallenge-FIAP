@@ -29,7 +29,8 @@ namespace Contacts.Infraestructure
 
         private static IServiceCollection AddRepositories(this IServiceCollection services)
         {
-            services.AddScoped<IContactsRepository, ContactsRepository>(); 
+            services.AddScoped<IContactsRepository, ContactsRepository>();
+
             return services;
         }
     }

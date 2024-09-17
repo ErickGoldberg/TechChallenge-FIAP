@@ -1,14 +1,19 @@
 using Contacts.API.Extensions;
 using Contacts.API.Middleware;
 using Contacts.Infraestructure;
+using Contacts.Application;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// Add services to the container.
-builder.ConfigureServices();
-builder.Services.AddInfrastructure(builder.Configuration);
+builder.Services.AddSingleton<GlobalExceptionHandler>();
 
-var app = builder.Build(); 
+// Add services to the container.
+builder.Services.AddInfrastructure(builder.Configuration).AddApplication();
+builder.ConfigureServices();
+
+
+
+var app = builder.Build();
 
 using (var serviceScope = app.Services.CreateScope())
 {
@@ -32,3 +37,4 @@ app.UseMiddleware<GlobalExceptionHandler>();
 app.MapControllers();
 
 app.Run();
+

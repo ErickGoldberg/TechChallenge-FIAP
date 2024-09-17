@@ -1,6 +1,8 @@
 ﻿using Contacts.Domain.Entities;
 using Contacts.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
+using Contacts.Application.Services;
+using Contacts.Application.Dtos;
 
 namespace Contacts.API.Controllers
 {
@@ -8,11 +10,11 @@ namespace Contacts.API.Controllers
     [ApiController]
     public class ContactsController : ControllerBase
     {
-        private readonly IContactsRepository _contactsRepository;
+        private readonly IContactService _contactsService;
 
-        public ContactsController(IContactsRepository contactsRepository)
+        public ContactsController(IContactService contactsRepository)
         {
-            _contactsRepository = contactsRepository;
+            _contactsService = contactsRepository;
         }
 
         /// <summary>
@@ -22,11 +24,11 @@ namespace Contacts.API.Controllers
         [HttpGet]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces(typeof(List<Contact>))]
+        [Produces(typeof(List<ContactDto>))]
         public async Task<IActionResult> GetAll()
         {
-            var contacts = await _contactsRepository.GetContactsAsync();
-            return Ok(contacts); 
+            var contacts = await _contactsService.GetContactsAsync();
+            return Ok(contacts);
         }
 
         /// <summary>
@@ -37,11 +39,11 @@ namespace Contacts.API.Controllers
         [HttpGet("{id:guid}")]
         [ProducesResponseType(StatusCodes.Status200OK)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        [Produces(typeof(Contact))]
+        [Produces(typeof(ContactDto))]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var contact = _contactsRepository.GetContactByIdAsync(id);
-            return Ok(contact); 
+            var contact = _contactsService.GetContactByIdAsync(id);
+            return Ok(contact);
         }
 
         /// <summary>
@@ -51,10 +53,10 @@ namespace Contacts.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Insert(Contact contact)
+        public async Task<IActionResult> Insert(ContactDto contact)
         {
-            await _contactsRepository.CreateContactAsync(contact);
-            return Created(); 
+            await _contactsService.CreateContactAsync(contact);
+            return Created();
         }
 
         /// <summary>
@@ -65,10 +67,10 @@ namespace Contacts.API.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(Contact contact)
+        public async Task<IActionResult> Update(ContactDto contact)
         {
-            await _contactsRepository.UpdateContactAsync(contact);
-            return NoContent(); 
+            await _contactsService.UpdateContactAsync(contact);
+            return NoContent();
         }
 
         /// <summary>
@@ -81,8 +83,8 @@ namespace Contacts.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _contactsRepository.DeleteContactAsync(id);
-            return NoContent(); 
+            await _contactsService.DeleteContactAsync(id);
+            return NoContent();
         }
     }
 

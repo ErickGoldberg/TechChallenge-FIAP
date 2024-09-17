@@ -1,11 +1,20 @@
 ﻿using System.ComponentModel.DataAnnotations;
 
 namespace Contacts.Domain.ValueObjects;
-public class Email(string endereco)
+public class Email
 {
+    public Email()
+    {
+    }
+
+    public Email(string endereco)
+    {
+        Endereco = endereco;
+    }
+
     [Required]
     [EmailAddress(ErrorMessage = "O endereço de email não é valido")]
-    public string Endereco { get; private set; } = endereco;
+    public string Endereco { get; private set; }
 
     public override bool Equals(object? obj)
     {
@@ -15,6 +24,6 @@ public class Email(string endereco)
         return Endereco == outroEmail.Endereco;
     }
 
-    public override int GetHashCode() => 
+    public override int GetHashCode() =>
         Endereco.GetHashCode();
 }
