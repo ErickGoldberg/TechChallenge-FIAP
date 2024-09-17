@@ -25,4 +25,8 @@
     <ProjectReference Include="..\Contacts.Domain\Contacts.Domain.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Persistence\Migrations\" />
+  </ItemGroup>
+
 </Project>

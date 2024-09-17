@@ -8,7 +8,10 @@ var builder = WebApplication.CreateBuilder(args);
 builder.Services.AddSingleton<GlobalExceptionHandler>();
 
 // Add services to the container.
-builder.Services.AddInfrastructure(builder.Configuration).AddApplication();
+builder.Services
+    .AddInfrastructure(builder.Configuration)
+    .AddApplication();
+
 builder.ConfigureServices();
 
 

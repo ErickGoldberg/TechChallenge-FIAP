@@ -16,10 +16,11 @@ namespace Contacts.Infraestructure.Persistence.Migrations
                 columns: table => new
                 {
                     Id = table.Column<Guid>(type: "uniqueidentifier", nullable: false),
-                    Nome = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    Email = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    DDD = table.Column<int>(type: "int", nullable: false),
-                    Telefone = table.Column<string>(type: "nvarchar(max)", nullable: false)
+                    FirstName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    LastName = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    EmailAddress = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    PhoneDDD = table.Column<int>(type: "int", nullable: false),
+                    PhoneNumber = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
