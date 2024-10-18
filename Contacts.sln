@@ -3,13 +3,15 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.10.35201.131
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.API", "Contacts.API\Contacts.API.csproj", "{6777892C-1D2F-4BB6-91EC-6BAB30446561}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.API", "Contacts.API\Contacts.API.csproj", "{6777892C-1D2F-4BB6-91EC-6BAB30446561}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.Domain", "Contacts.Domain\Contacts.Domain.csproj", "{6506979F-AA40-40AB-988E-0C38070543CD}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.Domain", "Contacts.Domain\Contacts.Domain.csproj", "{6506979F-AA40-40AB-988E-0C38070543CD}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.Application", "Contacts.Application\Contacts.Application.csproj", "{23351383-668E-4BCC-8645-7C469C451B34}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.Application", "Contacts.Application\Contacts.Application.csproj", "{23351383-668E-4BCC-8645-7C469C451B34}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.Infraestructure", "Contacts.Infraestructure\Contacts.Infraestructure.csproj", "{8BA7D262-EFB4-4789-9E76-CC48DB041BC7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Contacts.Infraestructure", "Contacts.Infraestructure\Contacts.Infraestructure.csproj", "{8BA7D262-EFB4-4789-9E76-CC48DB041BC7}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Contacts.UnitTests", "Contacts.UnitTests\Contacts.UnitTests.csproj", "{E381F4CE-5090-495D-8408-C925BC9B31C1}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{8BA7D262-EFB4-4789-9E76-CC48DB041BC7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8BA7D262-EFB4-4789-9E76-CC48DB041BC7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8BA7D262-EFB4-4789-9E76-CC48DB041BC7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E381F4CE-5090-495D-8408-C925BC9B31C1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E381F4CE-5090-495D-8408-C925BC9B31C1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E381F4CE-5090-495D-8408-C925BC9B31C1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E381F4CE-5090-495D-8408-C925BC9B31C1}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

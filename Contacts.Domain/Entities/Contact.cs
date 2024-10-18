@@ -13,6 +13,7 @@ public class Contact
         Name = name;
         Email = email;
         Phone = phone;
+        Validate();
     }
     public Guid Id { get; set; }
     public Name Name { get; set; }
@@ -36,6 +37,16 @@ public class Contact
     {
         Phone = newPhone
             ?? throw new ArgumentNullException("O telefone não pode ser vazio.");
+    }
+
+    private void Validate()
+    {
+        if (Name is null)
+            throw new ArgumentNullException("O nome não pode ser vazio.");
+        if (Email is null)
+            throw new ArgumentNullException("O email não pode ser vazio.");
+        if (Phone is null)
+            throw new ArgumentNullException("O telefone não pode ser vazio.");
     }
 }
 
