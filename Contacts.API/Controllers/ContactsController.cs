@@ -3,6 +3,7 @@ using Contacts.Domain.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Contacts.Application.Services;
 using Contacts.Application.Dtos;
+using Contacts.Application.InputModels;
 
 namespace Contacts.API.Controllers
 {
@@ -28,7 +29,7 @@ namespace Contacts.API.Controllers
         public async Task<IActionResult> GetAll()
         {
             var contacts = await _contactsService.GetContactsAsync();
-            return Ok(contacts);
+            return Ok(contacts.Data);
         }
 
         /// <summary>
@@ -42,8 +43,12 @@ namespace Contacts.API.Controllers
         [Produces(typeof(ContactDto))]
         public async Task<IActionResult> GetById(Guid id)
         {
-            var contact = _contactsService.GetContactByIdAsync(id);
-            return Ok(contact);
+            var contact = await _contactsService.GetContactByIdAsync(id);
+
+            if (contact.IsSuccess)
+                return Ok(contact?.Data);
+
+            return NotFound(contact.Message);
         }
 
         /// <summary>
@@ -53,10 +58,14 @@ namespace Contacts.API.Controllers
         [HttpPost]
         [ProducesResponseType(StatusCodes.Status201Created)]
         [ProducesResponseType(StatusCodes.Status400BadRequest)]
-        public async Task<IActionResult> Insert(ContactDto contact)
+        public async Task<IActionResult> Insert(CreateOrEditContactInputModel contact)
         {
-            await _contactsService.CreateContactAsync(contact);
-            return Created();
+            var result = await _contactsService.CreateContactAsync(contact);
+            
+            if (result.IsSuccess)
+                return Created();
+
+            return BadRequest(result.Message);
         }
 
         /// <summary>
@@ -67,10 +76,14 @@ namespace Contacts.API.Controllers
         [HttpPut]
         [ProducesResponseType(StatusCodes.Status204NoContent)]
         [ProducesResponseType(StatusCodes.Status404NotFound)]
-        public async Task<IActionResult> Update(ContactDto contact)
+        public async Task<IActionResult> Update(CreateOrEditContactInputModel contact)
         {
-            await _contactsService.UpdateContactAsync(contact);
-            return NoContent();
+            var result = await _contactsService.UpdateContactAsync(contact);
+
+            if(result.IsSuccess)
+                return NoContent();
+
+            return BadRequest(result.Message);
         }
 
         /// <summary>
@@ -83,8 +96,12 @@ namespace Contacts.API.Controllers
         [ProducesResponseType(StatusCodes.Status404NotFound)]
         public async Task<IActionResult> Delete(Guid id)
         {
-            await _contactsService.DeleteContactAsync(id);
-            return NoContent();
+            var result = await _contactsService.DeleteContactAsync(id);
+            
+            if (result.IsSuccess)
+                return NoContent();
+
+            return BadRequest(result.Message);
         }
     }
 

@@ -1,19 +1,16 @@
-﻿using Contacts.Application.Dtos;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using Contacts.Application.Abstraction;
+using Contacts.Application.Dtos;
+using Contacts.Application.InputModels;
 
 namespace Contacts.Application.Services
 {
     public interface IContactService
     {
-        Task<List<ContactDto>> GetContactsAsync();
-        Task<List<ContactDto>> GetContactsByDDDAsync(int DDD);
-        Task<ContactDto> GetContactByIdAsync(Guid id);
-        Task CreateContactAsync(ContactDto contato);
-        Task UpdateContactAsync(ContactDto contact);
-        Task DeleteContactAsync(Guid id);
+        Task<Result<List<ContactDto>>> GetContactsAsync();
+        Task<Result<List<ContactDto>>> GetContactsByDDDAsync(int DDD);
+        Task<Result<ContactDto>> GetContactByIdAsync(Guid id);
+        Task<Result> CreateContactAsync(CreateOrEditContactInputModel contactInputModel);
+        Task<Result> UpdateContactAsync(CreateOrEditContactInputModel contactInputModel);
+        Task<Result> DeleteContactAsync(Guid id);
     }
 }

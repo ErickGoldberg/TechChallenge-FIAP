@@ -53,7 +53,7 @@ namespace Contacts.UnitTests.Domain.ValueObjects
 
             // Assert
             Assert.False(isValid);
-            Assert.Contains(validationResults, r => r.ErrorMessage == "O tamanho do telefone deve ser de 8 a 9 digitos");
+            Assert.Contains(validationResults, r => r.ErrorMessage == "O tamanho do telefone deve ser de 8 a 9 dígitos");
         }
 
         [Fact]

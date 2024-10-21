@@ -1,44 +1,81 @@
-﻿using Contacts.Application.Dtos;
+﻿using Contacts.Application.Abstraction;
+using Contacts.Application.Dtos;
+using Contacts.Application.InputModels;
 using Contacts.Domain.Entities;
 using Contacts.Domain.Repositories;
+using Contacts.Domain.ValueObjects;
 
 namespace Contacts.Application.Services
 {
     public class ContactService(IContactsRepository contactRepository) : IContactService
     {
-        public async Task CreateContactAsync(ContactDto contatoDto)
+        public async Task<Result> CreateContactAsync(CreateOrEditContactInputModel contactInputModel)
         {
-            Contact contact = new Contact(contatoDto.Name, contatoDto.Email, contatoDto.Phone);
+            var contactName = new Name(contactInputModel.FirstName, contactInputModel.LastName);
+            var contactEmail = new Email(contactInputModel.Email);
+            var contactPhone = new Phone(contactInputModel.DDD, contactInputModel.Number);
+
+            Contact contact = new Contact(contactName, contactEmail, contactPhone);
+
             await contactRepository.CreateContactAsync(contact);
+
+            return Result.Success();
         }
 
-        public async Task DeleteContactAsync(Guid id)
+        public async Task<Result> DeleteContactAsync(Guid id)
         {
+            var contact = await contactRepository.GetContactByIdAsync(id);
+
+            if (contact is null)
+                return Result.Failure("Contact not found");
+
             await contactRepository.DeleteContactAsync(id);
+
+            return Result.Success();
         }
 
-        public async Task<ContactDto> GetContactByIdAsync(Guid id)
+        public async Task<Result<ContactDto>> GetContactByIdAsync(Guid id)
         {
             var result = await contactRepository.GetContactByIdAsync(id);
-            return new ContactDto(result.Id, result.Name, result.Email, result.Phone);
+
+            if (result is null)
+                return Result<ContactDto>.Success(null);
+
+            var contactResult = new ContactDto(result.Id, result.Name, result.Email, result.Phone);
+
+            return Result<ContactDto>.Success(contactResult);
         }
 
-        public async Task<List<ContactDto>> GetContactsAsync()
+        public async Task<Result<List<ContactDto>>> GetContactsAsync()
         {
-            var result = await contactRepository.GetContactsAsync();
-            return result.Select(r => new ContactDto(r.Id, r.Name, r.Email, r.Phone)).ToList();
+            var contacts = await contactRepository.GetContactsAsync();
+            var contactsResult = contacts.Select(r => new ContactDto(r.Id, r.Name, r.Email, r.Phone)).ToList();
+
+            return Result<List<ContactDto>>.Success(contactsResult);
         }
 
-        public async Task<List<ContactDto>> GetContactsByDDDAsync(int DDD)
+        public async Task<Result<List<ContactDto>>> GetContactsByDDDAsync(int DDD)
         {
-            var result = await contactRepository.GetContactsByDDDAsync(DDD);
-            return result.Select(r => new ContactDto(r.Id, r.Name, r.Email, r.Phone)).ToList();
+            var contacts = await contactRepository.GetContactsByDDDAsync(DDD);
+            var contactsResult = contacts.Select(r => new ContactDto(r.Id, r.Name, r.Email, r.Phone)).ToList();
+
+            return Result<List<ContactDto>>.Success(contactsResult);
         }
 
-        public async Task UpdateContactAsync(ContactDto contatoDto)
+        public async Task<Result> UpdateContactAsync(CreateOrEditContactInputModel contactInputModel)
         {
-            Contact contact = new Contact(contatoDto.Name, contatoDto.Email, contatoDto.Phone);
+            var contact = await contactRepository.GetContactByIdAsync(contactInputModel.Id);
+
+            if (contact is null)
+                return Result.Failure("Contact not found");
+
+            contact.Name = new Name(contactInputModel.FirstName, contactInputModel.LastName);
+            contact.Email = new Email(contactInputModel.Email);
+            contact.Phone = new Phone(contactInputModel.DDD, contactInputModel.Number);
+
             await contactRepository.UpdateContactAsync(contact);
+
+            return Result.Success();
         }
     }
 }

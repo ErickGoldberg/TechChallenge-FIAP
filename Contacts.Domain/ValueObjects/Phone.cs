@@ -17,7 +17,7 @@ public class Phone
     [Range(11, 99, ErrorMessage = "DDD inválido - O DDD deve estar entre 11 ou 99")]
     public int DDD { get; private set; }
     [Required]
-    [Range(8, 9, ErrorMessage = "O tamanho do telefone deve ser de 8 a 9 digitos")]
+    [Range(10000000, 999999999, ErrorMessage = "O tamanho do telefone deve ser de 8 a 9 dígitos")]
     public int Number { get; private set; }
 
     public override bool Equals(object? obj)
