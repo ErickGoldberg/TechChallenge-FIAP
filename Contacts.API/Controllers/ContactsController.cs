@@ -52,6 +52,25 @@ namespace Contacts.API.Controllers
         }
 
         /// <summary>
+        /// Retorna um contato específico pelo DDD.
+        /// </summary>
+        /// <param name="ddd">O DDD do contato.</param>
+        /// <returns>Status 200 OK se encontrado, ou 404 Not Found.</returns>
+        [HttpGet("{ddd:int}")]
+        [ProducesResponseType(StatusCodes.Status200OK)]
+        [ProducesResponseType(StatusCodes.Status404NotFound)]
+        [Produces(typeof(ContactDto))]
+        public async Task<IActionResult> GetByDdd(int ddd)
+        {
+            var contact = await _contactsService.GetContactsByDDDAsync(ddd);
+
+            if (contact.IsSuccess)
+                return Ok(contact?.Data);
+
+            return NotFound(contact.Message);
+        }
+
+        /// <summary>
         /// Insere um novo contato.
         /// </summary>
         /// <returns>Status 201 Created, ou 400 BadRequest.</returns>

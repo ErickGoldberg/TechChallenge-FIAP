@@ -35,7 +35,7 @@ namespace Contacts.Infraestructure.Persistence.Repositories
             var contact = await _context.Contatos.FirstOrDefaultAsync(x => x.Id == id);
 
             return contact;
-        }
+        }    
 
         public async Task<List<Contact>> GetContactsAsync()
         {
