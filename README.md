@@ -4,7 +4,6 @@
 - .NET 8
 - DDD
 - Clean Architecture
-- MediatR
 - Entity Framework Core
 - Padrao Repository
 - Fluent Validation
