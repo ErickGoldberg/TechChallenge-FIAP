@@ -1,0 +1,10 @@
+global:
+  scrape_interval: 5s
+scrape_configs:
+  - job_name: "dotnet-application"
+    static_configs:
+      - targets: ["dotnet-api:8080"]
+    metrics_path: /metrics
+    scheme: http
+    tls_config:
+      insecure_skip_verify: true
