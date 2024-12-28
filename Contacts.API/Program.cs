@@ -38,7 +38,7 @@ var app = builder.Build();
 using (var serviceScope = app.Services.CreateScope())
 {
     var serviceProvider = serviceScope.ServiceProvider;
-    DbInitializer.Initialize(serviceProvider);
+    await DbInitializer.InitializeAsync(serviceProvider);
 }
 
 // Configure the HTTP request pipeline.
