@@ -14,7 +14,7 @@ namespace Contacts.Infraestructure
                 var retries = 0;
                 var delayTime = delay ?? TimeSpan.FromSeconds(5);
 
-                while (true)
+                while (maxRetries <= retries)
                 {
                     try
                     { 
