@@ -6,36 +6,11 @@ namespace Contacts.Infraestructure
 {
     public static class DbInitializer
     {
-        public static async Task InitializeAsync(IServiceProvider serviceProvider, int maxRetries = 3, TimeSpan? delay = null)
+        public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var scope = serviceProvider.CreateScope())
+            using (var context = new ContactsDbContext(serviceProvider.GetRequiredService<DbContextOptions<ContactsDbContext>>()))
             {
-                var context = scope.ServiceProvider.GetRequiredService<ContactsDbContext>();
-                var retries = 0;
-                var delayTime = delay ?? TimeSpan.FromSeconds(5);
-
-                while (maxRetries <= retries)
-                {
-                    try
-                    { 
-                        await context.Database.MigrateAsync();
-                        break;  
-                    }
-                    catch (Exception ex)
-                    {
-                        retries++;
-
-                        Console.Error.WriteLine($"Tentativa {retries}/{maxRetries} falhou: {ex.Message}");
-
-                        if (retries >= maxRetries)
-                        {
-                            Console.Error.WriteLine("Número máximo de tentativas excedido. Lançando exceção.");
-                            throw;
-                        }
-
-                        await Task.Delay(delayTime);
-                    }
-                }
+                context.Database.Migrate();
             }
         }
     }
