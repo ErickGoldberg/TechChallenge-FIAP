@@ -4,7 +4,6 @@ using Contacts.Infraestructure;
 using Contacts.Application;
 using OpenTelemetry.Metrics;
 
-
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddOpenTelemetry()
@@ -17,7 +16,7 @@ builder.Services.AddOpenTelemetry()
             new ExplicitBucketHistogramConfiguration
             {
                 Boundaries = new double[] { 0, 0.005, 0.01, 0.025, 0.05,
-                      0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10 }
+                    0.075, 0.1, 0.25, 0.5, 0.75, 1, 2.5, 5, 7.5, 10 }
             });
     });
 
@@ -43,8 +42,8 @@ using (var serviceScope = app.Services.CreateScope())
 
 // Configure the HTTP request pipeline.
 
-    app.UseSwagger();
-    app.UseSwaggerUI();
+app.UseSwagger();
+app.UseSwaggerUI();
 
 
 app.UseHttpsRedirection();
@@ -60,3 +59,4 @@ app.MapControllers();
 
 app.Run();
 
+public partial class Program { }

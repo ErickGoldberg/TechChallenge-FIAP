@@ -1,4 +1,5 @@
 ﻿using Contacts.Infraestructure.Persistence;
+using Contacts.Infraestructure.SeedTest;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 
@@ -8,8 +9,15 @@ namespace Contacts.Infraestructure
     {
         public static void Initialize(IServiceProvider serviceProvider)
         {
-            using (var context = new ContactsDbContext(serviceProvider.GetRequiredService<DbContextOptions<ContactsDbContext>>()))
+            var options = serviceProvider.GetRequiredService<DbContextOptions<ContactsDbContext>>();
+            using (var context = new ContactsDbContext(options))
             {
+                if (context.Database.IsInMemory()) 
+                {
+                    SeedData.SeedTestContacts(context);
+                    return; 
+                }
+
                 context.Database.Migrate();
             }
         }
