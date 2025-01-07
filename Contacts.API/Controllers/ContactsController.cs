@@ -45,10 +45,10 @@ namespace Contacts.API.Controllers
         {
             var contact = await _contactsService.GetContactByIdAsync(id);
 
-            if (contact.IsSuccess)
-                return Ok(contact?.Data);
+            if (contact.Data != null)
+                return Ok(contact.Data);
 
-            return NotFound(contact.Message);
+            return NotFound();
         }
 
         /// <summary>
@@ -64,10 +64,10 @@ namespace Contacts.API.Controllers
         {
             var contact = await _contactsService.GetContactsByDDDAsync(ddd);
 
-            if (contact.IsSuccess)
-                return Ok(contact?.Data);
+            if (contact.Data.Count != 0)
+                return Ok(contact.Data);
 
-            return NotFound(contact.Message);
+            return NotFound();
         }
 
         /// <summary>

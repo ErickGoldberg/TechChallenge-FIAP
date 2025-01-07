@@ -3,10 +3,7 @@
 namespace Contacts.Domain.Entities;
 public class Contact
 {
-    public Contact()
-    {
-
-    }
+    public Contact() { }
     public Contact(Name name, Email email, Phone phone)
     {
         Id = Guid.NewGuid();
@@ -15,6 +12,7 @@ public class Contact
         Phone = phone;
         Validate();
     }
+
     public Guid Id { get; set; }
     public Name Name { get; set; }
     public Email Email { get; set; }
