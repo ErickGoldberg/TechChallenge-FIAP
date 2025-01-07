@@ -8,3 +8,6 @@ scrape_configs:
     scheme: http
     tls_config:
       insecure_skip_verify: true
+  - job_name: 'node-exporter'
+    static_configs:
+      - targets: ['node-exporter:9100']
