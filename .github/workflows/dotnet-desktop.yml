@@ -14,8 +14,8 @@ jobs:
         configuration: [Debug, Release]
 
     runs-on: windows-latest
-    
 
+    
     env:
       Solution_Name: Contacts.sln
       Unit_Test_Project_Path: Contacts.UnitTests/Contacts.UnitTests.csproj
