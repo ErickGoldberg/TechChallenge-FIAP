@@ -8,6 +8,10 @@
 - Padrao Repository
 - Fluent Validation
 - Middlewares
+- Prometheus
+- Grafana
+- GitHub Actions
+- Docker
 
 
 ### Requisitos Funcionais
@@ -28,3 +32,6 @@ Dapper para a camada de acesso a dados.
 (por exemplo: validação de formato de e-mail, telefone, campos
 obrigatórios).
 - Testes Unitários: desenvolver testes unitários utilizando xUnit ou NUnit.
+- Monitoramento com Prometheus: Integração com Prometheus para coletar as métricas de desempenho.
+- Dashboards com Grafana: Dashboard no Grafana para visualizar as métricas coletadas pelo Prometheus, fornecendo insights sobre o desempenho da aplicação.
+- Pipeline: Pipeline de CI utilizando GitHub Actions para automatizar o processo de build e executar testes, garantindo a qualidade do código e reduzindo intervenções manuais.
